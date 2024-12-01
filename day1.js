@@ -1029,22 +1029,18 @@ const inputLines = [
   "45592   15347",
 ]
 
-// Initialize the arrays
 const listone = []
 const listtwo = []
 
-// Populate the lists from input
 inputLines.forEach((line) => {
   const [num1, num2] = line.split(/\s+/).map(Number)
   listone.push(num1)
   listtwo.push(num2)
 })
 
-// Sort both lists in ascending order
 listone.sort((a, b) => a - b)
 listtwo.sort((a, b) => a - b)
 
-// Calculate the total distance
 let totalDistance = 0
 for (let i = 0; i < listone.length; i++) {
   totalDistance += Math.abs(listone[i] - listtwo[i])
@@ -1057,6 +1053,5 @@ listone.forEach((num) => {
   totalSimilarityScore += num * countInRightList
 })
 
-// Output the result
 console.log(totalDistance)
 console.log(totalSimilarityScore)
