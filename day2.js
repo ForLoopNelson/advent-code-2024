@@ -1000,3 +1000,25 @@ const data = [
   "17 20 23 25 26",
   "85 86 89 92 94",
 ]
+
+function day2(data) {
+  let safe = 0
+  // Ensure all elements are converted to numbers
+  const numbersList = data.map((line) => line.split(" ").map(Number))
+  numbersList.forEach((numbers) => {
+    for (let i = 0; i < numbers.length; i++) {
+      for (let j = 0; j < numbers.length; j++) {
+        if (i !== j) {
+          // Check if the number is within the "safe" range relative to others
+          if (numbers[i] <= numbers[j] + 4 && numbers[i] >= numbers[j] - 4) {
+            safe++
+          }
+        }
+      }
+    }
+  })
+
+  return safe // Return the total count of "safe" comparisons
+}
+
+console.log(day2(data))
