@@ -1004,13 +1004,30 @@ const data = [
 function day2(data) {
   let safe = 0
   // Ensure all elements are converted to numbers
+
   const numbersList = data.map((line) => line.split(" ").map(Number))
   numbersList.forEach((numbers) => {
+    const isIncreasing = numbers.every(
+      (num, i) => i === 0 || num > numbers[i - 1]
+    )
+
+    // Check if the numbers are all decreasing
+    const isDecreasing = numbers.every(
+      (num, i) => i === 0 || num < numbers[i - 1]
+    )
     for (let i = 0; i < numbers.length; i++) {
       for (let j = 0; j < numbers.length; j++) {
         if (i !== j) {
           // Check if the number is within the "safe" range relative to others
-          if (numbers[i] <= numbers[j] + 4 && numbers[i] >= numbers[j] - 4) {
+          if (
+            numbers[i] < numbers[j] + 4 &&
+            numbers[i] > numbers[j] - 4 &&
+            numbers[i] !== numbers[j]
+          ) {
+            return "not safe"
+          } else if (isDecreasing || isIncreasing) {
+            safe++
+          } else {
             safe++
           }
         }
