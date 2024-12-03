@@ -1001,41 +1001,96 @@ const data = [
   "85 86 89 92 94",
 ]
 
-function day2(data) {
+const smallTest = [
+  "7 6 4 2 1",
+  "1 2 7 8 9",
+  "9 7 6 2 1",
+  "1 3 2 4 5",
+  "8 6 4 4 1",
+  "1 3 6 7 9",
+]
+
+function days() {
+  let arr = data.map((line) => line.split(" ").map(Number))
+
+  const isSafe = (a) => {
+    d = a.slice(0, -1).map((v, i) => v - a[i + 1])
+    return d.every((e) => e > 0 && e < 4) || d.every((e) => e < 0 && e > -4)
+  }
+
+  let safe = arr.flatMap((x, ix) => (isSafe(x) ? [ix] : []))
+
+  console.log(safe.length) // Part 1 answer
+
+  console.log(
+    arr.filter(
+      (x, ix) =>
+        !safe.includes(ix) && x.some((y, yx) => isSafe(x.toSpliced(yx, 1)))
+    ).length + safe.length
+  ) // Part 2 answer
+
+  // Version with for loop for fun
+  let p1safe = 0
+  let p2safe = 0
+
+  for (i = 0; i < arr.length; i++) {
+    let x = arr[i]
+
+    if (isSafe(x)) {
+      p1safe++
+    } else if (x.some((y, yx) => isSafe(x.toSpliced(yx, 1)))) {
+      p2safe++
+    }
+  }
+
+  console.log(
+    "Part 1 answer is ",
+    p1safe,
+    " Part 2 answer is ",
+    p1safe + p2safe
+  )
+}
+
+function isSafe(levels) {
+  const differences = []
+
+  for (let i = 1; i < levels.length; i++) {
+    differences.push(levels[i] - levels[i - 1])
+  }
+
+  const increasing = differences.every((d) => d >= 1 && d <= 3)
+  const decreasing = differences.every((d) => d <= -1 && d >= -3)
+
+  return increasing || decreasing // Returns true if either increasing or decreasing
+}
+
+function day2() {
   let safe = 0
-  // Ensure all elements are converted to numbers
+  let madeSafe = 0
 
-  const numbersList = data.map((line) => line.split(" ").map(Number))
-  numbersList.forEach((numbers) => {
-    const isIncreasing = numbers.every(
-      (num, i) => i === 0 || num > numbers[i - 1]
-    )
+  const reports = smallTest.map((line) => line.split(" ").map(Number))
 
-    // Check if the numbers are all decreasing
-    const isDecreasing = numbers.every(
-      (num, i) => i === 0 || num < numbers[i - 1]
-    )
-    for (let i = 0; i < numbers.length; i++) {
-      for (let j = 0; j < numbers.length; j++) {
-        if (i !== j) {
-          // Check if the number is within the "safe" range relative to others
-          if (
-            numbers[i] < numbers[j] + 4 &&
-            numbers[i] > numbers[j] - 4 &&
-            numbers[i] !== numbers[j]
-          ) {
-            return "not safe"
-          } else if (isDecreasing || isIncreasing) {
-            safe++
-          } else {
-            safe++
-          }
-        }
+  for (const report of reports) {
+    let tolerable = false
+
+    for (let i = 0; i < report.length; i++) {
+      const removed = [...report.slice(0, i), ...report.slice(i + 1)]
+
+      if (isSafe(removed)) {
+        tolerable = true
+        break
       }
     }
-  })
 
-  return safe // Return the total count of "safe" comparisons
+    if (isSafe(report)) safe++
+    if (isSafe(report) || tolerable) madeSafe++
+  }
+
+  return [safe, madeSafe]
 }
 
 console.log(day2(data))
+console.log(day2(smallTest))
+console.log(days(data))
+
+//257, 328
