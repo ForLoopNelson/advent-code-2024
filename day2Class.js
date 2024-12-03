@@ -1,4 +1,4 @@
-//Solution accepted.
+//Solution accepted. part 2 of challenge only. I don't know what I did
 
 class Solution {
   constructor() {
@@ -31,6 +31,9 @@ class Solution {
 
     return isAscending || isDescending
   }
+
+  //part 1 method
+  partOne() {}
 
   // Part 2 method
   partTwo() {
