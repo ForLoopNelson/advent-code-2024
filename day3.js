@@ -11,18 +11,16 @@ xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
 Only the four highlighted sections are real mul instructions. Adding up the result of each instruction produces 161 (2*4 + 5*5 + 11*8 + 8*5).
 
 Scan the corrupted memory for uncorrupted mul instructions. What do you get if you add up all of the results of the multiplications?   */
-
-const fs = require("fs")
-const input = fs.readFileSync("../../../day3Data.txt", "utf8").trim()
+// const test =
+//   "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"
 
 function day3() {
-  const test =
-    "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"
-  const matches = test.match(/mul\(\d+,\d+\)/g)
+  const fs = require("fs")
+  const input = fs.readFileSync("../../../day3Data.txt", "utf8").trim()
+  const matches = input.match(/mul\(\d+,\d+\)/g)
   let results = []
   if (matches) {
     matches.forEach((expression) => {
-      // Extract the two numbers inside the parentheses
       const [, num1, num2] = expression.match(/mul\((\d+),(\d+)\)/).map(Number)
 
       const res = num1 * num2
@@ -32,4 +30,4 @@ function day3() {
   return results.reduce((a, c) => a + c, 0)
 }
 
-console.log(day3())
+console.log(day3()) //167650499
