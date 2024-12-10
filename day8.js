@@ -24,11 +24,18 @@ const data = advent.split("\n").map((e) => e.split(""))
 const antinodes = {},
   allAntinodes = {}
 
+//Helper fucntion:
+/*This calculates the "antinodes" (points on the line extended through two points).
+dx and dy represent the directional offsets in x and y.
+It returns two potential antinodes:
+a1: Extends the line backward from (x1, y1).
+a2: Extends the line forward from (cX, cY).  */
 function calculateAntinodes(x1, y1, cX, cY, dx, dy) {
   dx ??= cX - x1
   dy ??= cY - y1
   return { a1: { x: x1 - dx, y: y1 - dy }, a2: { x: cX + dx, y: cY + dy } }
 }
+//The ??= operator is called the nullish assignment operator. It assigns a value to a variable only if the variable is null or undefined
 
 for (let y1 = 0; y1 < data.length; y1++) {
   for (let x1 = 0; x1 < data[y1].length; x1++) {
@@ -41,6 +48,7 @@ for (let y1 = 0; y1 < data.length; y1++) {
           const { a1, a2 } = calculateAntinodes(x1, y1, x2, y2)
           if (data[a1.y]?.[a1.x]) (antinodes[a1.y] ??= {})[a1.x] = 1
           if (data[a2.y]?.[a2.x]) (antinodes[a2.y] ??= {})[a2.x] = 1
+          /*The ?. operator in data[a1.y]?.[a1.x] is called the optional chaining operator. It is used to safely access properties or methods on an object, even if the object (or intermediate properties) is null or undefined. If any part of the chain is null or undefined, the entire expression evaluates to undefined without throwing an error.  */
 
           // Part 2
           let [cX1, cY1, cX2, cY2] = [x1, y1, x2, y2]
