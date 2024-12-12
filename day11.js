@@ -46,3 +46,27 @@ After 6 blinks:
 In this example, after blinking six times, you would have 22 stones. After blinking 25 times, you would have 55312 stones!
 
 Consider the arrangement of stones in front of you. How many stones will you have after blinking 25 times?  */
+
+let data = "0 5601550 3914 852 50706 68 6 645371"
+let stones = data.split(" ").map(Number)
+
+for (let i = 0; i < 25; i++) {
+  const newStones = []
+
+  stones.forEach((stone) => {
+    if (stone === 0) {
+      newStones.push(1)
+    } else if (stone.toString().length % 2 === 0) {
+      const str = stone.toString()
+      const mid = str.length / 2
+      const left = parseInt(str.slice(0, mid), 10)
+      const right = parseInt(str.slice(mid), 10)
+      newStones.push(left, right)
+    } else {
+      newStones.push(stone * 2024)
+    }
+  })
+  stones = newStones
+}
+
+console.log(stones.length)
