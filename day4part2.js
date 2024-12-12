@@ -1,5 +1,5 @@
 const fs = require("node:fs")
-const data = fs.readFileSync("../../../day4Data.txt", "utf8").split("\n")
+const data = fs.readFileSync("./day4Data.txt", "utf8").split("\n")
 
 // PART 1
 
