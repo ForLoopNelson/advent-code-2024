@@ -16,7 +16,7 @@ Scan the corrupted memory for uncorrupted mul instructions. What do you get if y
 
 function day3() {
   const fs = require("fs")
-  const input = fs.readFileSync("../../../day3Data.txt", "utf8").trim()
+  const input = fs.readFileSync("./day3Data.txt", "utf8").trim()
   const matches = input.match(/mul\(\d+,\d+\)/g)
   let results = []
   if (matches) {
@@ -50,7 +50,7 @@ Handle the new instructions; what do you get if you add up all of the results of
 
 function day3Part2() {
   const fs = require("fs")
-  const tests = fs.readFileSync("../../../day3Data.txt", "utf8").trim()
+  const tests = fs.readFileSync("./day3Data.txt", "utf8").trim()
   let isEnabled = true // Initially, mul instructions are enabled
   let results = []
 
