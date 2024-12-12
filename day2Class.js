@@ -9,7 +9,7 @@ class Solution {
   // Method to parse the input
   parseInput() {
     const fs = require("fs")
-    const input = fs.readFileSync("../../../day2Data.txt", "utf8").trim()
+    const input = fs.readFileSync("./day2Data.txt", "utf8").trim()
     this.reports = input.split("\n").map((line) => line.split(" ").map(Number))
   }
 
