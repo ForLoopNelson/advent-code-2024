@@ -1,5 +1,5 @@
 const fs = require("fs")
-const test = fs.readFileSync("../../../day4Data.txt", "utf8").trim()
+const test = fs.readFileSync("./day4Data.txt", "utf8").trim()
 
 function findXMAS(grid) {
   const word = "XMAS"
@@ -44,7 +44,7 @@ function findXMAS(grid) {
 }
 
 // Read and parse the data from the file
-const data = fs.readFileSync("../../../day4Data.txt", "utf8").trim()
+const data = fs.readFileSync("./day4Data.txt", "utf8").trim()
 const grid = data.split("\n").map((line) => line.split("")) // Assuming each line is a row in the grid
 
 console.log(findXMAS(grid))
